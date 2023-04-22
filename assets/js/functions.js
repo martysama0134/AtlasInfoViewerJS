@@ -27,7 +27,8 @@ function getColorFromBrightness(color) {
 }
 
 function getCoordString(x, y) {
-	var size = "X: "+x +" Y: "+y;
+	// var size = "X: "+x +" Y: "+y;
+	var size = x+" "+y;
 	return size;
 }
 
