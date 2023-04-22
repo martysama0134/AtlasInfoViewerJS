@@ -100,7 +100,9 @@ document.getElementById('file').onchange = function(){
 				continue;
 			}
 			cur = lines[line].split('\t');
-			if( cur.length != 5){
+			// if (parseInt(cur.length) != 5)
+			if (parseInt(cur.length) < 5)
+			{
 				console.log("Malformed line", line, lines[line]);
 				continue;
 			}
