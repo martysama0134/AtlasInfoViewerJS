@@ -13,12 +13,18 @@ function getRandomColor() {
 	}
 	return color;
 }
+
 function colorBrightness(color) {
 	var r = parseInt(color.substr(1, 2), 16);
 	var g = parseInt(color.substr(3, 2), 16);
 	var b = parseInt(color.substr(5, 2), 16);
 	return (r * 299 + g * 587 + b * 114) / 1000; // returns a value between 0 and 255
 }
+
+function getColorFromBrightness(color) {
+	return colorBrightness(color) < 80 ? 'white' : 'black';
+}
+
 function draw() {
 	var canvas = document.getElementById("canvas");
 	if (!canvas.getContext) {
@@ -35,7 +41,7 @@ function draw() {
 		for(y=0; y < 10; y++){
 			for(x=0; x < 10; x++){
 				var cellcolor = getRandomColor();
-				var fontcolor = colorBrightness(cellcolor) < 80 ? 'white' : 'black';
+				var fontcolor = getColorFromBrightness(cellcolor);
 				var paint = {
 					RECTANGLE_STROKE_STYLE : 'black',
 					RECTANGLE_LINE_WIDTH : 1,
@@ -80,7 +86,7 @@ function draw() {
 		dataSet = dataList[i];
 		//console.log( "["+(i+1) + "/" + dataList.length + "] map:" + dataSet.map + " bx:" + dataSet.base_x + " by:" + dataSet.base_y + " sx:" + dataSet.size_x + " sy:" + dataSet.size_y);
 		var cellcolor = getRandomColor();
-		var fontcolor = colorBrightness(cellcolor) < 80 ? 'white' : 'black';
+		var fontcolor = getColorFromBrightness(cellcolor);
 		var paint = {
 			RECTANGLE_STROKE_STYLE : 'black',
 			RECTANGLE_LINE_WIDTH : 1,
