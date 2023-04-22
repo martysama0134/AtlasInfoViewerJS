@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>Atlasinfo Viewer</title>
+	<meta name="description" content="HTML5 Viewer for Metin2 Atlasinfo.txt">
+	<meta name="author" content="MrLicorice">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<!--[if lt IE 9]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body class="vsc-initialized">
+	<div id="controls-wrapper">
+		<div id="controls">
+			<button id="toggleLog">Toggle Log</button><br>
+			<div id="logwrapper" style="display: none;">
+				<textarea id="log"></textarea><br>
+			</div>
+			<label>Load Atlasinfo:</label><input type="file" name="file" id="file"><br>
+			<label>Scale:</label><input type="range" id="scale" min="0" max="100" value="25"><input type="text" id="sel_scale"><br>
+			<a id="download_image" download="canvas.png"><button>Get Image</button></a>
+		</div>
+	</div>
+	<canvas id="canvas" width="5952" height="6464"></canvas>
+	<script type="text/javascript" src="assets/js/centeredcanvas.js"></script>
+	<script type="text/javascript" src="assets/js/functions.js"></script>
+
+</body></html>
