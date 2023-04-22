@@ -111,7 +111,7 @@ function draw() {
 
 function removeMapPrefix(str) {
 	// var re = /^metin2_map_|^map_n_/;
-	var re = /^((season[12]\/)?(metin2_map_|map_n_|gm_guild_))/;
+	var re = /^((season[12]\/)?(metin2_map_n_|metin2_map_|map_n_|gm_guild_|metin2_|map_))/;
 	return str.replace(re, "");
 }
 
@@ -172,24 +172,36 @@ function dataURLtoBlob(dataurl) {
     }
     return new Blob([u8arr], {type:mime});
 }
-function getImage(){
+function getImage() {
 	var link = document.createElement("a");
 	var canvas = document.getElementById("canvas");
-	var imgData = canvas.toDataURL({    format: 'png',
-	multiplier: 4});
+	var imgData = canvas.toDataURL({
+	  format: 'png',
+	  multiplier: 4
+	});
 	var strDataURI = imgData.substr(22, imgData.length);
 	var blob = dataURLtoBlob(imgData);
 	var objurl = URL.createObjectURL(blob);
+
+	// Create a new canvas with the same dimensions as the original canvas
+	var newCanvas = document.createElement('canvas');
+	newCanvas.width = canvas.width;
+	newCanvas.height = canvas.height;
+
+	// Paint the new canvas with white color
+	var ctx = newCanvas.getContext('2d');
+	ctx.fillStyle = "#fff";
+	ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+
+	// Draw the original canvas on top of the new canvas
+	ctx.drawImage(canvas, 0, 0);
+
+	// Download the new canvas as an image
 	link.download = "atlasinfo.png";
-	link.href = objurl;
+	link.href = newCanvas.toDataURL('image/png');
 	link.click();
 }
-/*function getImage(){
-	var canvas = document.getElementById("canvas");
-	var img = canvas.toDataURL("image/png");
-	this.href = img.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-	console.log("Downloading image!")
-}*/
+
 scale.onchange = function(){
 	var newScale = this.value / 100;
 	if(newScale == 0){

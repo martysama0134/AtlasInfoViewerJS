@@ -75,8 +75,9 @@ paint_centered_wrap = function(canvas, Paint, x, y, w, h, text, fh, spl) {
                 lx = x+w/2-ctx2d.measureText(lines[j]).width/2;
                 // DEBUG
                 //console.log("ctx2d.fillText('"+ lines[j] +"', "+ lx +", " + ly + ")");
-                ctx2d.fillStyle=Paint.VALUE_FONT_COLOR;
-                ctx2d.fillText(lines[j], lx, ly);
+                // ctx2d.fillStyle=Paint.VALUE_FONT_COLOR;
+                // ctx2d.fillText(lines[j], lx, ly);
+                renderOutlinedText(ctx2d, lines[j], lx, ly, Paint.VALUE_FONT_COLOR);
             }
         }
     } else {
@@ -143,9 +144,38 @@ function paint_text(canvas, Paint, x, y, w, h, text, fh, spl)
                 lx = x+w/2-ctx2d.measureText(lines[j]).width/2;
                 // DEBUG
                 //console.log("ctx2d.fillText('"+ lines[j] +"', "+ lx +", " + ly + ")");
-                ctx2d.fillStyle=Paint.VALUE_FONT_COLOR;
-                ctx2d.fillText(lines[j], lx, ly);
+                renderOutlinedText(ctx2d, lines[j], lx, ly, Paint.VALUE_FONT_COLOR);
+                // ctx2d.fillStyle=Paint.VALUE_FONT_COLOR;
+                // ctx2d.fillText(lines[j], lx, ly);
             }
         }
     }
 }
+
+function renderOutlinedText(ctx, text, x, y, textColor) {
+    // Save the context state
+    ctx.save();
+
+    // Set the font and text alignment
+    // ctx.font = 'bold 36px Arial';
+    // ctx.textAlign = 'center';
+    // ctx.textBaseline = 'middle';
+
+    if (textColor == 'white')
+    {
+        strokeColor = textColor == 'white' ? 'black' : 'white';
+        strokeWidth = 3;
+
+        // Render the stroke
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = strokeWidth;
+        ctx.strokeText(text, x, y);
+    }
+
+    // Render the text
+    ctx.fillStyle = textColor;
+    ctx.fillText(text, x, y);
+
+    // Restore the context state
+    ctx.restore();
+  }
