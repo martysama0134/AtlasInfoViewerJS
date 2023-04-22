@@ -4,6 +4,7 @@ var unitScale = 0.125;
 var widthMax = 0;
 var heightMax = 0;
 var dataList = false;
+var saveWhiteBg = true; // save white bg
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
 
@@ -190,8 +191,10 @@ function getImage() {
 
 	// Paint the new canvas with white color
 	var ctx = newCanvas.getContext('2d');
-	ctx.fillStyle = "#fff";
-	ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+	if (saveWhiteBg) {
+		ctx.fillStyle = "#fff";
+		ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+	}
 
 	// Draw the original canvas on top of the new canvas
 	ctx.drawImage(canvas, 0, 0);

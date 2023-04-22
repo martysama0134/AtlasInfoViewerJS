@@ -164,7 +164,7 @@ function renderOutlinedText(ctx, text, x, y, textColor) {
     if (textColor == 'white')
     {
         strokeColor = textColor == 'white' ? 'black' : 'white';
-        strokeWidth = 3;
+        strokeWidth = 2;
 
         // Render the stroke
         ctx.strokeStyle = strokeColor;
