@@ -6,7 +6,7 @@ var heightMax = 0;
 var dataList = false;
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
-	
+
 	var color = '#';
 	for (var i = 0; i < 6; i++) {
 		color += letters[Math.floor(Math.random() * 16)];
@@ -81,10 +81,17 @@ function draw() {
 		console.log("MAP", dataSet.map, dataSet.base_x, dataSet.base_y, dataSet.size_x, dataSet.size_y);
 		paint_centered_wrap(canvas, paint, dataSet.base_x*unitScale, dataSet.base_y*unitScale, dataSet.size_x*unitScale, dataSet.size_y*unitScale, dataSet.map, 10, 2);
 	}
-	
+
 	//ctx.clearRect(45,45,60,60);
 	//ctx.strokeRect(50,50,50,50);
 }
+
+function removeMapPrefix(str) {
+	// var re = /^metin2_map_|^map_n_/;
+	var re = /^((season[12]\/)?(metin2_map_|map_n_))/;
+	return str.replace(re, "");
+}
+
 document.getElementById('file').onchange = function(){
 	var file = this.files[0];
 	var reader = new FileReader();
@@ -107,15 +114,15 @@ document.getElementById('file').onchange = function(){
 				continue;
 			}
 			dataSet = {
-				"map":cur[0],
-				"base_x":  (cur[1]/100),
-				"base_y":  (cur[2]/100),
-				"size_x" : (cur[3]*unitSize),
-				"size_y" : (cur[4]*unitSize)
+				"map":		removeMapPrefix(cur[0]),
+				"base_x":	(cur[1]/100),
+				"base_y":	(cur[2]/100),
+				"size_x":	(cur[3]*unitSize),
+				"size_y":	(cur[4]*unitSize)
 			}
 			dataList.push(dataSet);
-			
-			log.value += "Map: "+dataSet.map+" Base X: "+dataSet.base_x+" Base Y: "+dataSet.base_y+" Width: " + dataSet.size_x + " Height: "+dataSet.size_y+"\n";
+
+			log.value += "Map: "+cur[0]+" Base X: "+dataSet.base_x+" Base Y: "+dataSet.base_y+" Width: " + dataSet.size_x + " Height: "+dataSet.size_y+"\n";
 			if(dataSet.base_x + dataSet.size_x > widthMax){
 				widthMax = dataSet.base_x + dataSet.size_x;
 				wMaxMap = dataSet.map;
