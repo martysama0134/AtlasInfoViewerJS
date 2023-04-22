@@ -13,6 +13,12 @@ function getRandomColor() {
 	}
 	return color;
 }
+function colorBrightness(color) {
+	var r = parseInt(color.substr(1, 2), 16);
+	var g = parseInt(color.substr(3, 2), 16);
+	var b = parseInt(color.substr(5, 2), 16);
+	return (r * 299 + g * 587 + b * 114) / 1000; // returns a value between 0 and 255
+}
 function draw() {
 	var canvas = document.getElementById("canvas");
 	if (!canvas.getContext) {
@@ -28,12 +34,14 @@ function draw() {
 		canvas.height = 10*(unitSize*unitScale);
 		for(y=0; y < 10; y++){
 			for(x=0; x < 10; x++){
+				var cellcolor = getRandomColor();
+				var fontcolor = colorBrightness(cellcolor) < 80 ? 'white' : 'black';
 				var paint = {
 					RECTANGLE_STROKE_STYLE : 'black',
 					RECTANGLE_LINE_WIDTH : 1,
 					VALUE_FONT : '12px Arial',
-					VALUE_FONT_COLOR : 'black',
-					VALUE_FILL_STYLE : getRandomColor()
+					VALUE_FONT_COLOR : fontcolor,
+					VALUE_FILL_STYLE : cellcolor
 				}
 				paint_centered_wrap(canvas, paint, (unitSize*unitScale)*x, (unitSize*unitScale)*y, unitSize*unitScale, unitSize*unitScale, "Load atlasinfo.txt to begin", 12, 2);
 			}
@@ -71,12 +79,14 @@ function draw() {
 	for(var i=0; i < dataList.length; i++){
 		dataSet = dataList[i];
 		//console.log( "["+(i+1) + "/" + dataList.length + "] map:" + dataSet.map + " bx:" + dataSet.base_x + " by:" + dataSet.base_y + " sx:" + dataSet.size_x + " sy:" + dataSet.size_y);
+		var cellcolor = getRandomColor();
+		var fontcolor = colorBrightness(cellcolor) < 80 ? 'white' : 'black';
 		var paint = {
 			RECTANGLE_STROKE_STYLE : 'black',
 			RECTANGLE_LINE_WIDTH : 1,
 			VALUE_FONT : '12px Arial',
-			VALUE_FONT_COLOR : 'black',
-			VALUE_FILL_STYLE : getRandomColor()
+			VALUE_FONT_COLOR : fontcolor,
+			VALUE_FILL_STYLE : cellcolor
 		}
 		console.log("MAP", dataSet.map, dataSet.base_x, dataSet.base_y, dataSet.size_x, dataSet.size_y);
 		paint_centered_wrap(canvas, paint, dataSet.base_x*unitScale, dataSet.base_y*unitScale, dataSet.size_x*unitScale, dataSet.size_y*unitScale, dataSet.map, 10, 2);
@@ -88,7 +98,7 @@ function draw() {
 
 function removeMapPrefix(str) {
 	// var re = /^metin2_map_|^map_n_/;
-	var re = /^((season[12]\/)?(metin2_map_|map_n_))/;
+	var re = /^((season[12]\/)?(metin2_map_|map_n_|gm_guild_))/;
 	return str.replace(re, "");
 }
 
