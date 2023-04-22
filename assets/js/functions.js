@@ -25,6 +25,11 @@ function getColorFromBrightness(color) {
 	return colorBrightness(color) < 80 ? 'white' : 'black';
 }
 
+function getCoordString(x, y) {
+	var size = "X: "+x +" Y: "+y;
+	return size;
+}
+
 function draw() {
 	var canvas = document.getElementById("canvas");
 	if (!canvas.getContext) {
@@ -75,7 +80,7 @@ function draw() {
 				VALUE_FONT_COLOR : "darkblue",
 				VALUE_FILL_STYLE : false
 			}
-			var coordString = "X: "+x*(unitSize)*100+" Y: "+y*(unitSize)*100;
+			var coordString = getCoordString(x*(unitSize)*100, y*(unitSize)*100);
 			console.log("GRID", coordString, x, y, x*(unitSize*unitScale),y*(unitSize*unitScale),(unitSize*unitScale),(unitSize*unitScale));
 			paint_centered_wrap(canvas, paint, x*(unitSize*unitScale),y*(unitSize*unitScale),(unitSize*unitScale),(unitSize*unitScale), coordString, 10, 2);
 
@@ -96,6 +101,8 @@ function draw() {
 		}
 		console.log("MAP", dataSet.map, dataSet.base_x, dataSet.base_y, dataSet.size_x, dataSet.size_y);
 		paint_centered_wrap(canvas, paint, dataSet.base_x*unitScale, dataSet.base_y*unitScale, dataSet.size_x*unitScale, dataSet.size_y*unitScale, dataSet.map, 10, 2);
+		var coordname = getCoordString(dataSet.base_x*100, dataSet.base_y*100);
+		paint_text(canvas, paint, dataSet.base_x*unitScale, dataSet.base_y*unitScale, dataSet.size_x*unitScale, dataSet.size_y*unitScale, coordname, 10, 2);
 	}
 
 	//ctx.clearRect(45,45,60,60);
