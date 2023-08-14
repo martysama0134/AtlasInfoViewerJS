@@ -131,7 +131,7 @@ document.getElementById('file').onchange = function(){
 			if(lines[line] == "\n" || lines[line] == ""){
 				continue;
 			}
-			cur = lines[line].split('\t');
+			cur = lines[line].split(/\s+/);
 			// if (parseInt(cur.length) != 5)
 			if (parseInt(cur.length) < 5)
 			{
