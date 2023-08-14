@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+
 	<title>Atlasinfo Viewer</title>
 	<meta name="description" content="HTML5 Viewer for Metin2 Atlasinfo.txt">
 	<meta name="author" content="MrLicorice">
@@ -20,6 +20,8 @@
 			<label>Load Atlasinfo:</label><input type="file" name="file" id="file"><br>
 			<label>Scale:</label><input type="range" id="scale" min="0" max="100" value="25"><input type="text" id="sel_scale"><br>
 			<a id="download_image" download="canvas.png"><button>Get Image</button></a>
+			<p>i.e. the map coordinates must be multiple of 25600 or 0 (to prevent glitchy object collisions).</p>
+			<p>Copyright 2023 (C) by MrLicorice &amp; <a href="https://github.com/martysama0134/AtlasInfoViewerJS" target="_blank">Improved</a> by martysama0134.</p>
 		</div>
 	</div>
 	<canvas id="canvas" width="5952" height="6464"></canvas>
