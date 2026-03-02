@@ -1,31 +1,63 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Atlasinfo Viewer</title>
-	<meta name="description" content="HTML5 Viewer for Metin2 Atlasinfo.txt">
+	<meta name="description" content="AtlasInfo sector viewer for M2">
 	<meta name="author" content="MrLicorice">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<!--[if lt IE 9]>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 	<![endif]-->
 </head>
 
-<body class="vsc-initialized">
-	<div id="controls-wrapper">
-		<div id="controls">
-			<button id="toggleLog">Toggle Log</button><br>
-			<div id="logwrapper" style="display: none;">
-				<textarea id="log"></textarea><br>
-			</div>
-			<label>Load Atlasinfo:</label><input type="file" name="file" id="file"><br>
-			<label>Scale:</label><input type="range" id="scale" min="0" max="100" value="25"><input type="text" id="sel_scale"><br>
-			<a id="download_image" download="canvas.png"><button>Get Image</button></a>
-			<p>i.e. the map coordinates must be multiple of 25600 or 0 (to prevent glitchy object collisions).</p>
-			<p>Copyright 2023 (C) by MrLicorice &amp; <a href="https://github.com/martysama0134/AtlasInfoViewerJS" target="_blank">Improved</a> by martysama0134.</p>
-		</div>
-	</div>
-	<canvas id="canvas" width="5952" height="6464"></canvas>
-	<script type="text/javascript" src="assets/js/centeredcanvas.js"></script>
-	<script type="text/javascript" src="assets/js/functions.js"></script>
+<body>
+<div id="app">
 
-</body></html>
+	<header id="app-header">
+		<h1>Atlasinfo Viewer</h1>
+		<p class="tagline">AtlasInfo sector viewer for M2</p>
+	</header>
+
+	<main id="app-main">
+		<div id="controls-wrapper">
+			<div id="controls">
+				<div class="control-group">
+					<button id="toggleLog">Toggle Log</button>
+				</div>
+				<div class="control-group">
+					<label class="file-btn" for="file">Load Atlasinfo</label>
+					<input type="file" name="file" id="file">
+				</div>
+				<div class="control-group scale-group">
+					<span class="scale-label">Scale:</span>
+					<input type="range" id="scale" min="0" max="100" value="25" aria-label="Scale">
+					<input type="text" id="sel_scale" aria-label="Scale value">
+				</div>
+				<div class="control-group">
+					<a id="download_image" download="canvas.png"><button>Get Image</button></a>
+				</div>
+			</div>
+			<div id="logwrapper" style="display: none;">
+				<textarea id="log"></textarea>
+			</div>
+		</div>
+
+		<div id="canvas-container">
+			<canvas id="canvas" width="5952" height="6464"></canvas>
+		</div>
+	</main>
+
+	<footer id="app-footer">
+		<p>Map coordinates must be multiples of 25600 or 0 to prevent glitchy object collisions.</p>
+		<p>Copyright 2023 (C) by MrLicorice &amp; <a href="https://github.com/martysama0134/AtlasInfoViewerJS" target="_blank">Improved</a> by martysama0134.</p>
+	</footer>
+
+</div>
+<script type="text/javascript" src="assets/js/centeredcanvas.js"></script>
+<script type="text/javascript" src="assets/js/functions.js"></script>
+</body>
+</html>
