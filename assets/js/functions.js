@@ -5,6 +5,7 @@ var widthMax = 0;
 var heightMax = 0;
 var dataList = false;
 var saveWhiteBg = true; // save white bg
+var useTransparency = false;
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
 
@@ -24,6 +25,13 @@ function colorBrightness(color) {
 
 function getColorFromBrightness(color) {
 	return colorBrightness(color) < 80 ? 'white' : 'black';
+}
+
+function hexToRgba(color, alpha) {
+	var r = parseInt(color.substr(1, 2), 16);
+	var g = parseInt(color.substr(3, 2), 16);
+	var b = parseInt(color.substr(5, 2), 16);
+	return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
 }
 
 function getCoordString(x, y) {
@@ -92,14 +100,14 @@ function draw() {
 	for(var i=0; i < dataList.length; i++){
 		dataSet = dataList[i];
 		//console.log( "["+(i+1) + "/" + dataList.length + "] map:" + dataSet.map + " bx:" + dataSet.base_x + " by:" + dataSet.base_y + " sx:" + dataSet.size_x + " sy:" + dataSet.size_y);
-		var cellcolor = getRandomColor();
+		var cellcolor = dataSet.color;
 		var fontcolor = getColorFromBrightness(cellcolor);
 		var paint = {
 			RECTANGLE_STROKE_STYLE : 'black',
 			RECTANGLE_LINE_WIDTH : 1,
 			VALUE_FONT : '12px Arial',
 			VALUE_FONT_COLOR : fontcolor,
-			VALUE_FILL_STYLE : cellcolor
+			VALUE_FILL_STYLE : useTransparency ? hexToRgba(cellcolor, 0.65) : cellcolor
 		}
 		console.log("MAP", dataSet.map, dataSet.base_x, dataSet.base_y, dataSet.size_x, dataSet.size_y);
 		paint_centered_wrap(canvas, paint, dataSet.base_x*unitScale, dataSet.base_y*unitScale, dataSet.size_x*unitScale, dataSet.size_y*unitScale, dataSet.map, 10, 2);
@@ -143,7 +151,8 @@ document.getElementById('file').onchange = function(){
 				"base_x":	(cur[1]/100),
 				"base_y":	(cur[2]/100),
 				"size_x":	(cur[3]*unitSize),
-				"size_y":	(cur[4]*unitSize)
+				"size_y":	(cur[4]*unitSize),
+				"color":	getRandomColor()
 			}
 			dataList.push(dataSet);
 
@@ -230,6 +239,10 @@ toggleLog.onclick = function() {
 	} else {
 		logwrapper.style.display = 'block';
 	}
+}
+toggleTransparency.onchange = function() {
+	useTransparency = this.checked;
+	draw();
 }
 download_image.addEventListener('click', getImage, false);
 window.addEventListener("load", function(){ setScale(0.25); logwrapper.style.display = 'none'; }, false);

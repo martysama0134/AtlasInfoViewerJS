@@ -207,6 +207,30 @@ button:focus-visible,
 }
 
 /* =====================================================================
+   CHECKBOX LABEL
+   ===================================================================== */
+.checkbox-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: 0.875rem;
+	color: var(--color-text-muted);
+	cursor: pointer;
+	user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	accent-color: var(--color-accent);
+	cursor: pointer;
+}
+
+.checkbox-label:hover {
+	color: var(--color-text);
+}
+
+/* =====================================================================
    FILE INPUT — visually hidden, activated via styled label
    ===================================================================== */
 #file {
