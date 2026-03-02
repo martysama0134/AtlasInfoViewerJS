@@ -83,16 +83,17 @@ function draw() {
 		for(x=0;x<xCount;x++){
 			ctx.strokeStyle="darkblue";
 			ctx.strokeRect(x*(unitSize*unitScale),y*(unitSize*unitScale),(unitSize*unitScale),(unitSize*unitScale))
+			var gridFontSize = Math.max(6, Math.floor(unitSize * unitScale * 0.15625));
 			var paint = {
 				RECTANGLE_STROKE_STYLE : "darkblue",
 				RECTANGLE_LINE_WIDTH : 1,
-				VALUE_FONT : '12px Arial',
+				VALUE_FONT : gridFontSize + 'px Arial',
 				VALUE_FONT_COLOR : "darkblue",
 				VALUE_FILL_STYLE : false
 			}
 			var coordString = getCoordString(x*(unitSize)*100, y*(unitSize)*100);
 			console.log("GRID", coordString, x, y, x*(unitSize*unitScale),y*(unitSize*unitScale),(unitSize*unitScale),(unitSize*unitScale));
-			paint_centered_wrap(canvas, paint, x*(unitSize*unitScale),y*(unitSize*unitScale),(unitSize*unitScale),(unitSize*unitScale), coordString, 10, 2);
+			paint_centered_wrap(canvas, paint, x*(unitSize*unitScale),y*(unitSize*unitScale),(unitSize*unitScale),(unitSize*unitScale), coordString, gridFontSize, 2);
 
 		}
 	}
